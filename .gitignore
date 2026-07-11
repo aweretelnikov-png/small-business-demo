@@ -1,13 +1,13 @@
 # Локальные переменные окружения и пароли
-   .env
-   *.env
+.env
+*.env
 
-   # Резервные копии PostgreSQL
-   analytics/backups/
+# Резервные копии PostgreSQL
+analytics/backups/
 
-   # Временные файлы Python
-   __pycache__/
-   *.py[cod]
+# Временные файлы Python
+__pycache__/
+*.py[cod]
 
-   # Настройки редактора
-   .vscode/
+# Настройки редактора
+.vscode/
