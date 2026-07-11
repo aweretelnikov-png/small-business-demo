@@ -59,6 +59,24 @@ Metabase (Docker)
 - эффективность рекламных источников;
 - сделки без полной оплаты.
 
+## Дашборды
+
+### Панель владельца
+
+![Панель владельца](docs/screenshots/owner-dashboard.png)
+
+### Воронка продаж
+
+![Воронка продаж](docs/screenshots/sales-funnel.png)
+
+### Работа менеджеров
+
+![Работа менеджеров](docs/screenshots/manager-performance.png)
+
+### Источники клиентов
+
+![Источники клиентов](docs/screenshots/marketing-sources.png)
+
 ## Быстрый запуск аналитики
 
 ```cmd
