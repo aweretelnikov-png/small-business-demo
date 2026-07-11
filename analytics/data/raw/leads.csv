@@ -1,0 +1,4 @@
+customer_phone,manager_email,source,service_name,status,desired_date,comment
++7 999 890-12-34,a.orlov@example.com,Telegram,Установка фальшивой двери,new,2026-08-03,Нужна консультация по дизайну
++7 999 901-23-45,e.volkova@example.com,Авито,Монтаж декоративной двери,contacted,2026-08-05,Клиент ожидает расчёт
++7 999 012-34-56,a.orlov@example.com,VK Реклама,Установка скрытой двери,proposal,2026-08-09,Коммерческое предложение отправлено
