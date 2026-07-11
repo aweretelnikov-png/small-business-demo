@@ -11,3 +11,6 @@ __pycache__/
 
 # Настройки редактора
 .vscode/
+
+# Виртуальное окружение Python
+analytics/.venv/
