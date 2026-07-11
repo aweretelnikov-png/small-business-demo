@@ -1,0 +1,13 @@
+# Локальные переменные окружения и пароли
+   .env
+   *.env
+
+   # Резервные копии PostgreSQL
+   analytics/backups/
+
+   # Временные файлы Python
+   __pycache__/
+   *.py[cod]
+
+   # Настройки редактора
+   .vscode/
