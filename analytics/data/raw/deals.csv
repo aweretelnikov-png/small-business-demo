@@ -1,0 +1,4 @@
+customer_phone,manager_email,service_name,amount,status,closed_at,paid_amount,paid_at,payment_method
++7 999 890-12-34,a.orlov@example.com,Установка фальшивой двери,38000.00,won,2026-08-04 15:00:00+03,38000.00,2026-08-04 15:30:00+03,Банковская карта
++7 999 901-23-45,e.volkova@example.com,Монтаж декоративной двери,26000.00,proposal,,,,
++7 999 012-34-56,a.orlov@example.com,Установка скрытой двери,41000.00,won,2026-08-12 13:00:00+03,20000.00,2026-08-12 13:30:00+03,Банковский перевод
