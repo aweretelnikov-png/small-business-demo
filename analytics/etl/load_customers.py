@@ -47,8 +47,12 @@ def main(input_file: Path) -> None:
                 phone = customer.phone.strip()
 
                 cursor.execute(
-                    "SELECT id FROM customers WHERE phone = %s",
-                    (phone,),
+                    """
+                    SELECT id
+                    FROM customers
+                    WHERE regexp_replace(phone, '\\D', '', 'g') = %s
+                    """,
+                    (phone.removeprefix("+"),),
                 )
                 existing_customer = cursor.fetchone()
 

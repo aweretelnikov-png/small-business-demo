@@ -5,6 +5,7 @@ from pathlib import Path
 import psycopg
 from dotenv import load_dotenv
 
+from normalizers import normalize_phone
 from validate_leads import load_and_validate
 
 PROJECT_DIR = Path(__file__).resolve().parents[1]
@@ -53,7 +54,7 @@ def main() -> None:
     with psycopg.connect(**connection_settings) as connection:
         with connection.cursor() as cursor:
             for lead in leads.itertuples(index=False):
-                customer_phone = lead.customer_phone.strip()
+                customer_phone = normalize_phone(lead.customer_phone)
                 manager_email = lead.manager_email.strip()
                 source_name = lead.source.strip()
                 service_name = lead.service_name.strip()
@@ -61,8 +62,12 @@ def main() -> None:
 
                 customer_id = get_required_id(
                     cursor,
-                    "SELECT id FROM customers WHERE phone = %s",
-                    customer_phone,
+                    """
+                    SELECT id
+                    FROM customers
+                    WHERE regexp_replace(phone, '\\D', '', 'g') = %s
+                    """,
+                    customer_phone.removeprefix("+"),
                     "клиент с телефоном",
                 )
                 manager_id = get_required_id(

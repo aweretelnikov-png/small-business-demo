@@ -3,6 +3,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from normalizers import normalize_phone
+
 REQUIRED_COLUMNS = {"full_name", "phone", "email"}
 
 
@@ -35,6 +37,16 @@ def load_and_validate(input_file: Path) -> pd.DataFrame:
 
     if (data["phone"].str.strip() == "").any():
         errors.append("Есть пустые телефоны.")
+
+    normalized_phones = []
+    for phone in data["phone"]:
+        try:
+            normalized_phones.append(normalize_phone(phone))
+        except ValueError as error:
+            errors.append(str(error))
+
+    if not errors:
+        data["phone"] = normalized_phones
 
     if data["phone"].duplicated().any():
         errors.append("Есть повторяющиеся телефоны.")
