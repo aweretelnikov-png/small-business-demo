@@ -1,49 +1,71 @@
- # Аналитика продаж
+# Аналитика продаж
 
-   Учебный модуль аналитики для компании «Фальшивые двери».
+Учебный модуль аналитики для компании «Фальшивые двери».
 
-   ## Сервисы
+## Сервисы
 
-   - PostgreSQL — хранит клиентов, заявки, сделки и оплаты.
-   - Metabase — создаёт отчёты и дашборды по данным PostgreSQL.
+- **PostgreSQL** — хранит клиентов, заявки, сделки и оплаты.
+- **Metabase** — создаёт отчёты и дашборды по данным PostgreSQL.
+- **Python ETL** — проверяет и загружает CSV/Excel-файлы в PostgreSQL.
 
-   ## Запуск
+## Запуск сервисов
 
-   Из папки `analytics`:
+Из папки `analytics`:
 
- ```cmd
-   docker compose up -d
- ```
+```cmd
+docker compose up -d
+```
 
- Остановка
+## Остановка сервисов
 
- ```cmd
-   docker compose stop
- ```
+```cmd
+docker compose stop
+```
 
- Проверка состояния
+## Проверка состояния
 
- ```cmd
-   docker compose ps
- ```
+```cmd
+docker compose ps
+```
 
- Логи PostgreSQL
+## Логи PostgreSQL
 
- ```cmd
-   docker compose logs --tail=20 postgres
- ```
+```cmd
+docker compose logs --tail=20 postgres
+```
 
- Адреса
+## Адреса
 
- - Metabase: http://localhost:3000
- - PostgreSQL для DBeaver: localhost:5432
+- Metabase: <http://localhost:3000>
+- PostgreSQL для DBeaver: `localhost:5432`
 
- Backup PostgreSQL
+## Подготовка Python-окружения
 
- ```cmd
-   mkdir backups
-   docker compose exec -T postgres pg_dump -U sales_user -d sales_demo >
- backups\sales_demo_backup.sql
- ```
+```cmd
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+```
 
- Backup сохраняется в analytics/backups/ и не добавляется в Git.
+## Загрузка данных
+
+Исходные файлы находятся в `data/raw/`:
+
+- `customers.csv` или `customers.xlsx`;
+- `leads.csv`;
+- `deals.csv`.
+
+Запуск всей ETL-цепочки:
+
+```cmd
+python etl\run_all.py
+```
+
+## Backup PostgreSQL
+
+```cmd
+mkdir backups
+docker compose exec -T postgres pg_dump -U sales_user -d sales_demo > backups\sales_demo_backup.sql
+```
+
+Backup сохраняется в `analytics/backups/` и не добавляется в Git.
