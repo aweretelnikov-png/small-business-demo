@@ -7,10 +7,12 @@
 Построить связку для малого бизнеса:
 
 ```text
-Источники данных → PostgreSQL → Metabase → бизнес-аналитика
+Документы → AI FAQ
+Данные продаж → PostgreSQL → Metabase
+Сайт → FastAPI → CRM → уведомления
 ```
 
-В следующих модулях проект будет расширен AI FAQ, формой заявок, FastAPI, Telegram и Twenty CRM.
+Аналитика и AI FAQ уже реализованы. Следующий модуль — форма заявок, FastAPI, Telegram и Twenty CRM.
 
 ## Готово: аналитика продаж
 
@@ -99,12 +101,52 @@ cd analytics
 python etl\run_all.py
 ```
 
+## Готово: AI FAQ
+
+Модуль [`ai-faq/`](ai-faq/) включает:
+
+- Open WebUI в Docker;
+- клиентскую базу знаний;
+- отдельную внутреннюю базу сотрудников;
+- локальные и облачные модели через Ollama;
+- строгий RAG Template;
+- многоязычные embeddings и гибридный поиск;
+- 50 клиентских тестов;
+- переиспользуемый API-автотестер;
+- backup Open WebUI с проверкой восстановления.
+
+### Архитектура AI FAQ
+
+```text
+Markdown-документы
+    ↓
+retrieval / embeddings
+    ↓
+LLM через Ollama Cloud
+    ↓
+ответ по базе знаний
+```
+
+### Клиентский ассистент
+
+![Клиентский AI FAQ](docs/screenshots/ai-faq-client.png)
+
+### Внутренний помощник сотрудников
+
+![Внутренний помощник](docs/screenshots/ai-faq-internal.png)
+
+### Раздельные базы знаний
+
+![Базы знаний AI FAQ](docs/screenshots/ai-faq-knowledge.png)
+
+Подробная инструкция: [`ai-faq/README.md`](ai-faq/README.md).
+
 ## Структура проекта
 
 ```text
 small-business-demo/
 ├── analytics/       # PostgreSQL, Metabase и ETL
-├── ai-faq/          # будущий модуль AI FAQ
+├── ai-faq/          # Open WebUI, базы знаний и автотесты
 ├── crm-leads/       # будущие сайт, FastAPI и CRM
 ├── shared/          # общие компоненты
 └── docs/            # документация проекта
@@ -113,7 +155,7 @@ small-business-demo/
 ## План развития
 
 - [x] Аналитика продаж: PostgreSQL, Metabase, CSV/XLSX ETL
-- [ ] AI FAQ: Open WebUI и база знаний компании
+- [x] AI FAQ: клиентская/внутренняя базы, RAG и 50 тестов
 - [ ] CRM и заявки: сайт, FastAPI, Telegram, Twenty CRM
 
 ## Демо-данные и безопасность
