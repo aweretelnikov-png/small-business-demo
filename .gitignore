@@ -17,3 +17,6 @@ analytics/.venv/
 
 # Логи ETL-загрузчиков
 analytics/logs/
+
+# Резервные копии Open WebUI
+ai-faq/backups/

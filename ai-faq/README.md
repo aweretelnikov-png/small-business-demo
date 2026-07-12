@@ -50,6 +50,16 @@ docker compose logs --tail=50 open-webui
 
 После изменения Markdown-файлов нужно заново загрузить или переиндексировать их в Open WebUI.
 
+## Backup Open WebUI
+
+```cmd
+cd ai-faq
+mkdir backups
+docker run --rm -v ai-faq_open_webui_data:/data -v "%CD%\backups:/backup" alpine tar -czf /backup/open-webui_backup.tar.gz -C /data .
+```
+
+Архив содержит чаты, настройки подключений, загруженные документы и embeddings. Он не добавляется в Git.
+
 ## Подключение модели
 
 В учебном стенде протестированы:
