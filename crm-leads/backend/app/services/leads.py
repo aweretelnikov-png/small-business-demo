@@ -71,6 +71,60 @@ def mark_crm_failed(lead_id: int) -> None:
             )
 
 
+def update_lead_status_from_crm(
+    crm_external_id: str,
+    new_status: str,
+    changed_at,
+) -> str:
+    with get_connection() as connection:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT id, status
+                FROM leads
+                WHERE crm_external_id = %s
+                FOR UPDATE
+                """,
+                (crm_external_id,),
+            )
+            row = cursor.fetchone()
+
+            if row is None:
+                return "not_found"
+
+            lead_id, old_status = row
+            if old_status == new_status:
+                return "unchanged"
+
+            cursor.execute(
+                """
+                UPDATE leads
+                SET
+                    status = %s,
+                    status_updated_at = %s,
+                    updated_at = NOW()
+                WHERE id = %s
+                """,
+                (new_status, changed_at, lead_id),
+            )
+            cursor.execute(
+                """
+                INSERT INTO lead_status_history (
+                    lead_id,
+                    old_status,
+                    new_status,
+                    source,
+                    changed_at
+                )
+                VALUES (%s, %s, %s, 'twenty_webhook', %s)
+                ON CONFLICT (lead_id, new_status, changed_at) DO NOTHING
+                """,
+                (lead_id, old_status, new_status, changed_at),
+            )
+
+    return "updated"
+
+
 def get_leads_for_crm_sync(limit: int = 100) -> list[dict]:
     with get_connection() as connection:
         with connection.cursor(row_factory=dict_row) as cursor:

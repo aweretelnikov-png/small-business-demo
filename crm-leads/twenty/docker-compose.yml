@@ -69,6 +69,9 @@ services:
       REDIS_URL: ${REDIS_URL:-redis://redis:6379}
       DISABLE_DB_MIGRATIONS: "true" # it already runs on the server
       DISABLE_CRON_JOBS_REGISTRATION: "true" # it already runs on the server
+      # Local demo only: allows webhooks to host.docker.internal.
+      # Keep safe mode enabled for public deployments.
+      OUTBOUND_HTTP_SAFE_MODE_ENABLED: "false"
 
       STORAGE_TYPE: ${STORAGE_TYPE}
       STORAGE_S3_REGION: ${STORAGE_S3_REGION}

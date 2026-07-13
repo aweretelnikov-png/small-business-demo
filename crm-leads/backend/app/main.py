@@ -1,9 +1,13 @@
-from fastapi import BackgroundTasks, FastAPI, status
+from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.schemas import LeadCreate, LeadRead, LeadResponse
 from app.services.integrations import process_lead_integrations
 from app.services.leads import get_recent_leads, save_lead
+from app.services.twenty_webhook import (
+    process_twenty_webhook,
+    verify_webhook_signature,
+)
 
 app = FastAPI(
     title="Фальшивые двери — API заявок",
@@ -22,6 +26,30 @@ app.add_middleware(
 @app.get("/api/health")
 def health_check() -> dict[str, str]:
     return {"status": "ok"}
+
+
+@app.post("/api/webhooks/twenty")
+async def receive_twenty_webhook(
+    request: Request,
+    x_twenty_webhook_signature: str = Header(...),
+    x_twenty_webhook_timestamp: str = Header(...),
+) -> dict[str, str]:
+    raw_body = await request.body()
+
+    if not verify_webhook_signature(
+        raw_body,
+        x_twenty_webhook_signature,
+        x_twenty_webhook_timestamp,
+    ):
+        raise HTTPException(status_code=401, detail="Invalid webhook signature")
+
+    try:
+        payload = await request.json()
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail="Invalid JSON") from error
+
+    result = process_twenty_webhook(payload)
+    return {"status": result}
 
 
 @app.get("/api/leads", response_model=list[LeadRead])
