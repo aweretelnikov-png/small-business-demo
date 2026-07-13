@@ -1,8 +1,8 @@
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.schemas import LeadCreate, LeadResponse
-from app.services.leads import save_lead
+from app.schemas import LeadCreate, LeadRead, LeadResponse
+from app.services.leads import get_recent_leads, save_lead
 
 app = FastAPI(
     title="Фальшивые двери — API заявок",
@@ -21,6 +21,11 @@ app.add_middleware(
 @app.get("/api/health")
 def health_check() -> dict[str, str]:
     return {"status": "ok"}
+
+
+@app.get("/api/leads", response_model=list[LeadRead])
+def list_leads() -> list[LeadRead]:
+    return [LeadRead(**lead) for lead in get_recent_leads()]
 
 
 @app.post(

@@ -1,25 +1,10 @@
-import re
+from psycopg.rows import dict_row
 
 from app.database import get_connection
 from app.schemas import LeadCreate
 
 
-def normalize_phone(phone: str) -> str:
-    digits = re.sub(r"\D", "", phone)
-
-    if len(digits) == 10:
-        digits = "7" + digits
-    elif len(digits) == 11 and digits.startswith("8"):
-        digits = "7" + digits[1:]
-
-    if len(digits) != 11 or not digits.startswith("7"):
-        raise ValueError("Некорректный российский телефон")
-
-    return f"+{digits}"
-
-
 def save_lead(lead: LeadCreate) -> int:
-    normalized_phone = normalize_phone(lead.phone)
 
     with get_connection() as connection:
         with connection.cursor() as cursor:
@@ -39,7 +24,7 @@ def save_lead(lead: LeadCreate) -> int:
                 """,
                 (
                     lead.name.strip(),
-                    normalized_phone,
+                    lead.phone,
                     lead.service,
                     lead.district.strip(),
                     lead.desired_date,
@@ -50,3 +35,28 @@ def save_lead(lead: LeadCreate) -> int:
             lead_id = cursor.fetchone()[0]
 
     return lead_id
+
+
+def get_recent_leads(limit: int = 100) -> list[dict]:
+    with get_connection() as connection:
+        with connection.cursor(row_factory=dict_row) as cursor:
+            cursor.execute(
+                """
+                SELECT
+                    id,
+                    name,
+                    phone,
+                    service,
+                    district,
+                    desired_date,
+                    comment,
+                    status,
+                    crm_external_id,
+                    created_at
+                FROM leads
+                ORDER BY created_at DESC
+                LIMIT %s
+                """,
+                (limit,),
+            )
+            return cursor.fetchall()
