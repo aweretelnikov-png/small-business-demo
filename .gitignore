@@ -2,8 +2,10 @@
 .env
 *.env
 
-# Резервные копии PostgreSQL
+# Резервные копии и данные клиентов
 analytics/backups/
+crm-leads/backups/*
+!crm-leads/backups/README.md
 
 # Временные файлы Python
 __pycache__/
