@@ -1,8 +1,16 @@
+import logging
+
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.schemas import LeadCreate, LeadRead, LeadResponse
 from app.services.leads import get_recent_leads, save_lead
+from app.services.telegram import (
+    TelegramDeliveryError,
+    send_lead_notification,
+)
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="Фальшивые двери — API заявок",
@@ -35,4 +43,10 @@ def list_leads() -> list[LeadRead]:
 )
 def create_lead(lead: LeadCreate) -> LeadResponse:
     lead_id = save_lead(lead)
+
+    try:
+        send_lead_notification(lead_id, lead)
+    except TelegramDeliveryError:
+        logger.warning("Telegram notification failed for lead_id=%s", lead_id)
+
     return LeadResponse(lead_id=lead_id, status="created")
