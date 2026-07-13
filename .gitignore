@@ -8,6 +8,7 @@ analytics/backups/
 # Временные файлы Python
 __pycache__/
 *.py[cod]
+.pytest_cache/
 
 # Настройки редактора
 .vscode/
