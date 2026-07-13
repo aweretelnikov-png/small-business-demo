@@ -2,6 +2,7 @@ from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.schemas import LeadCreate, LeadResponse
+from app.services.leads import save_lead
 
 app = FastAPI(
     title="Фальшивые двери — API заявок",
@@ -28,5 +29,5 @@ def health_check() -> dict[str, str]:
     status_code=status.HTTP_201_CREATED,
 )
 def create_lead(lead: LeadCreate) -> LeadResponse:
-    print(f"Получена тестовая заявка: {lead.model_dump()}")
-    return LeadResponse(lead_id=1, status="created")
+    lead_id = save_lead(lead)
+    return LeadResponse(lead_id=lead_id, status="created")
