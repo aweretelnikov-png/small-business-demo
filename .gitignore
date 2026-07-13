@@ -24,3 +24,6 @@ ai-faq/backups/
 # Локальное окружение и результаты автотестов AI FAQ
 ai-faq/.venv-evaluation/
 ai-faq/evaluation/results/
+
+# Виртуальное окружение FastAPI
+crm-leads/backend/.venv/

@@ -1,7 +1,8 @@
 const form = document.querySelector("#lead-form");
 const result = document.querySelector("#form-result");
+const submitButton = form.querySelector('button[type="submit"]');
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const formData = new FormData(form);
@@ -15,6 +16,30 @@ form.addEventListener("submit", (event) => {
     consent: formData.get("consent") === "on",
   };
 
-  console.log("Тестовая заявка:", lead);
-  result.textContent = "Данные формы собраны. Отправку на сервер подключим следующим этапом.";
+  submitButton.disabled = true;
+  result.textContent = "Отправляем заявку…";
+
+  try {
+    const response = await fetch("http://localhost:8000/api/leads", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(lead),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error("Сервер отклонил данные заявки");
+    }
+
+    result.textContent = `Заявка №${data.lead_id} принята.`;
+    form.reset();
+  } catch (error) {
+    console.error(error);
+    result.textContent = "Не удалось отправить заявку. Попробуйте ещё раз.";
+  } finally {
+    submitButton.disabled = false;
+  }
 });
