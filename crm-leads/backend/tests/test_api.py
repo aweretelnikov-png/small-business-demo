@@ -1,7 +1,6 @@
 from fastapi.testclient import TestClient
 
 from app.main import app
-from app.services.telegram import TelegramDeliveryError
 
 client = TestClient(app)
 
@@ -38,7 +37,7 @@ def test_valid_lead_returns_real_service_id(monkeypatch) -> None:
         return 42
 
     monkeypatch.setattr("app.main.save_lead", fake_save_lead)
-    monkeypatch.setattr("app.main.send_lead_notification", lambda lead_id, lead: None)
+    monkeypatch.setattr("app.main.process_lead_integrations", lambda lead_id, lead: None)
 
     response = client.post(
         "/api/leads",
@@ -58,13 +57,18 @@ def test_valid_lead_returns_real_service_id(monkeypatch) -> None:
     assert saved_lead["phone"] == "+79991112233"
 
 
-def test_lead_is_created_when_telegram_fails(monkeypatch) -> None:
+def test_lead_starts_background_integrations(monkeypatch) -> None:
+    processed = {}
+
     monkeypatch.setattr("app.main.save_lead", lambda lead: 43)
 
-    def fail_notification(lead_id, lead) -> None:
-        raise TelegramDeliveryError("Telegram unavailable")
+    def fake_process_integrations(lead_id, lead) -> None:
+        processed["lead_id"] = lead_id
 
-    monkeypatch.setattr("app.main.send_lead_notification", fail_notification)
+    monkeypatch.setattr(
+        "app.main.process_lead_integrations",
+        fake_process_integrations,
+    )
 
     response = client.post(
         "/api/leads",
@@ -81,3 +85,4 @@ def test_lead_is_created_when_telegram_fails(monkeypatch) -> None:
 
     assert response.status_code == 201
     assert response.json() == {"lead_id": 43, "status": "created"}
+    assert processed["lead_id"] == 43
