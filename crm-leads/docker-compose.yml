@@ -10,11 +10,19 @@ services:
       - "127.0.0.1:${CRM_DB_PORT}:5432"
     volumes:
       - crm_postgres_data:/var/lib/postgresql/data
+    networks:
+      - default
+      - reporting
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${CRM_DB_USER} -d ${CRM_DB_NAME}"]
       interval: 5s
       timeout: 5s
       retries: 10
+
+networks:
+  reporting:
+    external: true
+    name: small-business-demo-network
 
 volumes:
   crm_postgres_data:

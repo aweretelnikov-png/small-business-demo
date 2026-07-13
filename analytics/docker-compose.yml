@@ -10,6 +10,9 @@ services:
          - "5432:5432"
        volumes:
          - postgres_data:/var/lib/postgresql/data
+       networks:
+         - default
+         - reporting
      metabase:
        image: metabase/metabase:latest
        container_name: sales-metabase
@@ -22,6 +25,14 @@ services:
          - metabase_data:/metabase-data
        depends_on:
          - postgres
+       networks:
+         - default
+         - reporting
+
+networks:
+  reporting:
+    external: true
+    name: small-business-demo-network
 
 volumes:
   postgres_data:
