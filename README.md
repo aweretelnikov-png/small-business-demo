@@ -12,7 +12,7 @@
 Сайт → FastAPI → CRM → уведомления
 ```
 
-Аналитика и AI FAQ уже реализованы. Следующий модуль — форма заявок, FastAPI, Telegram и Twenty CRM.
+Все три учебных модуля реализованы: аналитика, AI FAQ и полный CRM-контур заявок.
 
 ## Готово: аналитика продаж
 
@@ -141,13 +141,41 @@ LLM через Ollama Cloud
 
 Подробная инструкция: [`ai-faq/README.md`](ai-faq/README.md).
 
+## Готово: CRM и заявки
+
+Модуль [`crm-leads/`](crm-leads/) включает:
+
+- форму заявки и FastAPI;
+- PostgreSQL `crm_demo`;
+- Telegram-уведомления;
+- создание контактов и сделок Twenty CRM;
+- защиту от дублей и повторную синхронизацию;
+- подписанный webhook этапов воронки;
+- историю статусов;
+- CRM-дашборд Metabase без персональных данных;
+- автоматические backend-тесты;
+- полный backup и изолированные restore-тесты.
+
+### Архитектура CRM
+
+```text
+Сайт → FastAPI → PostgreSQL
+                  ├→ Telegram
+                  ├→ Twenty CRM
+                  └→ Metabase
+
+Twenty Stage → signed webhook → FastAPI → история → Metabase
+```
+
+Подробная инструкция: [`crm-leads/README.md`](crm-leads/README.md).
+
 ## Структура проекта
 
 ```text
 small-business-demo/
 ├── analytics/       # PostgreSQL, Metabase и ETL
 ├── ai-faq/          # Open WebUI, базы знаний и автотесты
-├── crm-leads/       # будущие сайт, FastAPI и CRM
+├── crm-leads/       # сайт, FastAPI, Telegram, Twenty CRM и Metabase
 ├── shared/          # общие компоненты
 └── docs/            # документация проекта
 ```
@@ -156,7 +184,7 @@ small-business-demo/
 
 - [x] Аналитика продаж: PostgreSQL, Metabase, CSV/XLSX ETL
 - [x] AI FAQ: клиентская/внутренняя базы, RAG и 50 тестов
-- [ ] CRM и заявки: сайт, FastAPI, Telegram, Twenty CRM
+- [x] CRM и заявки: сайт, FastAPI, Telegram, Twenty CRM и Metabase
 
 ## Демо-данные и безопасность
 
