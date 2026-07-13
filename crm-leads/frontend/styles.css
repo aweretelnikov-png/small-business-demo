@@ -1,0 +1,90 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  color: #1f2937;
+  background: #f3f4f6;
+}
+
+header,
+main,
+footer {
+  width: min(900px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+header {
+  padding: 64px 0 32px;
+}
+
+header h1 {
+  margin-bottom: 8px;
+  font-size: clamp(36px, 7vw, 64px);
+}
+
+section {
+  margin-bottom: 24px;
+  padding: 28px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgb(15 23 42 / 8%);
+}
+
+form {
+  display: grid;
+  gap: 18px;
+}
+
+form > div {
+  display: grid;
+  gap: 6px;
+}
+
+label {
+  font-weight: 700;
+}
+
+input,
+select,
+textarea,
+button {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[type="checkbox"] {
+  width: auto;
+}
+
+form > div:has(input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  border: 0;
+  color: #ffffff;
+  background: #2563eb;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+footer {
+  padding: 8px 0 40px;
+  color: #64748b;
+}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Фальшивые двери</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Фальшивые двери</h1>
+    <p>Установка фальшивых, скрытых и декоративных дверей</p>
+  </header>
+
+  <main>
+    <section id="services">
+      <h2>Услуги</h2>
+      <p>Подберём конструкцию, выполним замер и монтаж.</p>
+    </section>
+
+    <section id="prices">
+      <h2>Цены</h2>
+      <p>Стоимость установки начинается от 25 000 ₽.</p>
+    </section>
+
+    <section id="request">
+      <h2>Оставить заявку</h2>
+
+      <form id="lead-form">
+        <div>
+          <label for="name">Имя</label>
+          <input id="name" name="name" type="text" required>
+        </div>
+
+        <div>
+          <label for="phone">Телефон</label>
+          <input id="phone" name="phone" type="tel" required>
+        </div>
+
+        <div>
+          <label for="service">Услуга</label>
+          <select id="service" name="service" required>
+            <option value="">Выберите услугу</option>
+            <option value="false-door">Фальшивая дверь</option>
+            <option value="hidden-door">Скрытая дверь</option>
+            <option value="decorative-door">Декоративная дверь</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="district">Район или адрес</label>
+          <input id="district" name="district" type="text" required>
+        </div>
+
+        <div>
+          <label for="desired-date">Желаемая дата замера</label>
+          <input id="desired-date" name="desired_date" type="date">
+        </div>
+
+        <div>
+          <label for="comment">Комментарий</label>
+          <textarea id="comment" name="comment" rows="5"></textarea>
+        </div>
+
+        <div>
+          <input id="consent" name="consent" type="checkbox" required>
+          <label for="consent">Согласен на обработку данных</label>
+        </div>
+
+        <button type="submit">Отправить заявку</button>
+        <p id="form-result" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>Демонстрационный учебный проект</p>
+  </footer>
+</body>
+</html>
