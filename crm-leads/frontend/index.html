@@ -3,79 +3,190 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Фальшивые двери</title>
+  <meta name="description" content="Скрытые, фальшивые и декоративные двери с замером и монтажом в Москве и Московской области.">
+  <title>Фальшивые двери | Двери как часть интерьера</title>
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>Фальшивые двери</h1>
-    <p>Установка фальшивых, скрытых и декоративных дверей</p>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Фальшивые двери, на главную">
+      <span class="brand-mark" aria-hidden="true">ФД</span>
+      <span>Фальшивые двери</span>
+    </a>
+
+    <nav aria-label="Основная навигация">
+      <a href="#services">Варианты</a>
+      <a href="#process">Как работаем</a>
+      <a href="#prices">Стоимость</a>
+    </nav>
+
+    <a class="header-cta" href="#request">Оставить заявку</a>
   </header>
 
-  <main>
-    <section id="services">
-      <h2>Услуги</h2>
-      <p>Подберём конструкцию, выполним замер и монтаж.</p>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Проектирование и монтаж</p>
+        <h1>Двери как часть интерьера</h1>
+        <p class="hero-lead">Скрытые, фальшивые и декоративные конструкции с замером и монтажом в Москве и области.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#request">Оставить заявку</a>
+          <a class="button button-secondary" href="#services">Смотреть варианты</a>
+        </div>
+      </div>
+
+      <figure class="hero-image">
+        <img src="assets/hero-door.jpg" alt="Современная деревянная дверь в интерьере" width="1800" height="1201" fetchpriority="high">
+      </figure>
     </section>
 
-    <section id="prices">
-      <h2>Цены</h2>
-      <p>Стоимость установки начинается от 25 000 ₽.</p>
+    <section class="facts" aria-label="Основные условия">
+      <div><strong>от 25 000 ₽</strong><span>ориентир за установку</span></div>
+      <div><strong>3 варианта</strong><span>под разные задачи интерьера</span></div>
+      <div><strong>Москва и область</strong><span>выезд на замер</span></div>
     </section>
 
-    <section id="request">
-      <h2>Оставить заявку</h2>
+    <section class="section services" id="services">
+      <div class="section-heading">
+        <h2>Три способа спрятать или подчеркнуть вход</h2>
+        <p>Подберём конструкцию под стену, мебель и сценарий помещения.</p>
+      </div>
 
-      <form id="lead-form">
-        <div>
-          <label for="name">Имя</label>
-          <input id="name" name="name" type="text" required>
+      <div class="service-mosaic">
+        <article class="service-card service-card-large">
+          <img src="assets/white-doors.jpg" alt="Белые двери без лишнего декора" width="1200" height="1500" loading="lazy">
+          <div>
+            <h3>Скрытая дверь</h3>
+            <p>Полотно в плоскости стены под покраску, панели или обои.</p>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <img src="assets/interior-door.jpg" alt="Дверь, встроенная в интерьер комнаты" width="1200" height="800" loading="lazy">
+          <div>
+            <h3>Фальшивая дверь</h3>
+            <p>Маскирует техническую зону, нишу или дополнительный вход.</p>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <img src="assets/decorative-door.jpg" alt="Деревянная дверь с выразительной фурнитурой" width="1200" height="800" loading="lazy">
+          <div>
+            <h3>Декоративная дверь</h3>
+            <p>Становится заметным элементом и поддерживает стиль помещения.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section process" id="process">
+      <div class="section-heading compact">
+        <h2>От идеи до аккуратного монтажа</h2>
+        <p>Сначала уточняем задачу и основание стены, затем фиксируем решение и стоимость.</p>
+      </div>
+
+      <div class="process-list">
+        <article>
+          <h3>Обсуждаем</h3>
+          <p>Получаем фото, размеры и пожелания к отделке.</p>
+        </article>
+        <article>
+          <h3>Замеряем</h3>
+          <p>Проверяем проём, стены, пол и направление открывания.</p>
+        </article>
+        <article>
+          <h3>Изготавливаем</h3>
+          <p>Согласуем конструкцию, материал и подготовку поверхности.</p>
+        </article>
+        <article>
+          <h3>Монтируем</h3>
+          <p>Устанавливаем, регулируем и передаём готовый результат.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="price-section" id="prices">
+      <div>
+        <h2>Установка начинается от 25 000 ₽</h2>
+      </div>
+      <p>Точная сумма зависит от проёма, механизма, отделки и подготовки стены. После замера фиксируем состав работ.</p>
+      <a class="button button-primary" href="#request">Оставить заявку</a>
+    </section>
+
+    <section class="request-section" id="request">
+      <div class="request-copy">
+        <p class="eyebrow">Заявка на консультацию</p>
+        <h2>Расскажите, какую дверь хотите</h2>
+        <p>Ответим на вопросы, уточним задачу и предложим удобное время для замера.</p>
+        <div class="request-note">
+          <strong>Что подготовить</strong>
+          <span>Фото проёма и примерные размеры помогут быстрее оценить решение.</span>
+        </div>
+      </div>
+
+      <form id="lead-form" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Имя</label>
+            <input id="name" name="name" type="text" autocomplete="name" minlength="2" required>
+          </div>
+
+          <div class="field">
+            <label for="phone">Телефон</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 999 000-00-00" minlength="10" required>
+          </div>
         </div>
 
-        <div>
-          <label for="phone">Телефон</label>
-          <input id="phone" name="phone" type="tel" required>
+        <div class="form-row">
+          <div class="field">
+            <label for="service">Какой вариант нужен</label>
+            <select id="service" name="service" required>
+              <option value="">Выберите вариант</option>
+              <option value="false-door">Фальшивая дверь</option>
+              <option value="hidden-door">Скрытая дверь</option>
+              <option value="decorative-door">Декоративная дверь</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="district">Район или город</label>
+            <input id="district" name="district" type="text" autocomplete="address-level2" required>
+          </div>
         </div>
 
-        <div>
-          <label for="service">Услуга</label>
-          <select id="service" name="service" required>
-            <option value="">Выберите услугу</option>
-            <option value="false-door">Фальшивая дверь</option>
-            <option value="hidden-door">Скрытая дверь</option>
-            <option value="decorative-door">Декоративная дверь</option>
-          </select>
-        </div>
+        <details class="optional-fields">
+          <summary>Добавить детали проекта</summary>
+          <div class="optional-content">
+            <div class="field">
+              <label for="desired-date">Желаемая дата замера</label>
+              <input id="desired-date" name="desired_date" type="date">
+            </div>
 
-        <div>
-          <label for="district">Район или адрес</label>
-          <input id="district" name="district" type="text" required>
-        </div>
+            <div class="field">
+              <label for="comment">Комментарий</label>
+              <textarea id="comment" name="comment" rows="4" placeholder="Например, дверь под покраску в спальне"></textarea>
+            </div>
+          </div>
+        </details>
 
-        <div>
-          <label for="desired-date">Желаемая дата замера</label>
-          <input id="desired-date" name="desired_date" type="date">
-        </div>
-
-        <div>
-          <label for="comment">Комментарий</label>
-          <textarea id="comment" name="comment" rows="5"></textarea>
-        </div>
-
-        <div>
+        <label class="consent" for="consent">
           <input id="consent" name="consent" type="checkbox" required>
-          <label for="consent">Согласен на обработку данных</label>
-        </div>
+          <span>Согласен на обработку данных для ответа на заявку</span>
+        </label>
 
-        <button type="submit">Отправить заявку</button>
-        <p id="form-result" role="status"></p>
+        <button class="button button-primary submit-button" type="submit">Отправить заявку</button>
+        <p id="form-result" role="status" aria-live="polite"></p>
       </form>
     </section>
   </main>
 
   <footer>
-    <p>Демонстрационный учебный проект</p>
+    <div>
+      <span class="brand-mark" aria-hidden="true">ФД</span>
+      <p><strong>Фальшивые двери</strong><br>Демонстрационный проект на вымышленных данных</p>
+    </div>
+    <p class="photo-credits">Фото: <a href="https://unsplash.com/@rundachoo" target="_blank" rel="noreferrer">runda choo</a>, <a href="https://unsplash.com/@zri" target="_blank" rel="noreferrer">Ruslan Zaplatin</a>, <a href="https://unsplash.com/@aples" target="_blank" rel="noreferrer">Alex Plesovskich</a>, <a href="https://unsplash.com/@rawkkim" target="_blank" rel="noreferrer">rawkkim</a></p>
   </footer>
 </body>
 </html>
