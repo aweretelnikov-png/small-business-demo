@@ -5,6 +5,44 @@ const desiredDate = document.querySelector("#desired-date");
 
 desiredDate.min = new Date().toISOString().split("T")[0];
 
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (!reducedMotion && "IntersectionObserver" in window) {
+  document.documentElement.classList.add("motion-ready");
+
+  const revealGroups = [
+    ".facts > div",
+    ".section-heading",
+    ".service-card",
+    ".process-list article",
+    ".price-section > *",
+    ".request-copy",
+    "#lead-form",
+  ];
+
+  const revealTargets = document.querySelectorAll(revealGroups.join(","));
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: "0px 0px -48px",
+    },
+  );
+
+  revealTargets.forEach((target, index) => {
+    target.classList.add("motion-reveal");
+    target.style.setProperty("--reveal-delay", `${(index % 4) * 55}ms`);
+    observer.observe(target);
+  });
+}
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
